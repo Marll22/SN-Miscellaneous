@@ -1,19 +1,19 @@
 // find_user_node.js
 
 /**
-* @author alealvar [alealv@mail.com]
+* @author alealvar [alealvarez@mail.com]
 * @version 0.1
 *
 * Build tag: glide-orlando-12-11-2019__patch0-hotfix1-01-08-2020
 */
 
 /**
-* Returns the node which user is logged-in on.
+* Returns the node which user is logged-in to.
 * Node is contained in loggin transaction log. The script filter that log
 * to find the node.
 *
 * @param {string} user_name The ID of the user
-* @return {string} The node which the user is logged-in on
+* @return {string} The node which the user is logged-in to
 */
 function findNode(user_name) {
   var logs = new GlideRecord('syslog_transaction');
