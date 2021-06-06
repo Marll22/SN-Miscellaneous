@@ -9,7 +9,7 @@
   <h1 align="center">Servicenow</h1>
 
   <p align="center">
-    Some of my stuff related to Service Now
+    Some of my stuff related to ServiceNow
     <br />
     <a href="https://github.com/AlexAlvarez092/servicenow/issues/">Report Bug</a>
     ·
