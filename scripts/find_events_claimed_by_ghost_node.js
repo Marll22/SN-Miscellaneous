@@ -1,13 +1,12 @@
 /**
-* @author alealvar [alealv@mail.com]
-* @version 0.1
-* @BuildTag glide-orlando-12-11-2019__patch0-hotfix1-01-08-2020
-*
-* Sometimes, for whatever reason, events get stuck because they are claimed
-* by an offline node or a node which doesn"t exist anymore in the instance.
-*
-* This script helps to identify those events
-*/
+ * @author alealvar [alealv@mail.com]
+ * @BuildTag glide-orlando-12-11-2019__patch0-hotfix1-01-08-2020
+ * @description
+ * Sometimes, for whatever reason, events get stuck because they are claimed
+ * by an offline node or a node which doesn"t exist anymore in the instance.
+ * This script helps to identify those events
+ * @print The stuck events and the node(s) claiming them
+ */
 function findStuckEvents() {
    var eventGa = new GlideAggregate("sysevent");
    eventGa.addAggregate("COUNT", "claimed_by");
