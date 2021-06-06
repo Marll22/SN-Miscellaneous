@@ -40,7 +40,7 @@ In this project you will find some of my scripts, update sets, cheatsheets, and 
 ### Scripts
 
 | Name | Description | Application | Scope | Link |
-| -- | -- | -- |
+| -- | -- | -- | -- | -- |
 | find_user_node.js | Returns the node which a user is logged-in to | Platform | Global| [Link](./scripts/find_user_node.js) |
 | find_events_claimed_by_ghost_node.js | Returns events claimed by nodes which are not running in the instance anymore | Platform | Global | [Link](./scripts/find_events_claimed_by_ghost_node.js) |
 | ppm_fix_user_duplicated_capacity.js | Fix/print resource users with duplicated records in aggregate tables | PPM | Global | [Link](./scripts/ppm_fix_user_duplicated_capacity.js) |
