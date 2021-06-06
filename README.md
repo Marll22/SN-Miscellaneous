@@ -35,15 +35,14 @@
 
 ## About The Project
 
-In this project you will find some of my scripts, update sets, cheatsheets, and whatever related to Servicenow I could find interesting at some point.
+In this project you will find some of my scripts, update sets, cheatsheets, and whatever related to ServiceNow I may find interesting at some point.
 
 ### Scripts
 
-- [find_user_node.js](./scripts/find_user_node.js) - *Returns the node which the a user is logged-in into*
-- [find_events_claimed_by_wrong_node.js](./scripts/find_events_claimed_by_wrong_node.js) - *Returns events claimed by nodes which are not used in the instance anymore*
-- [doc.py](./other/doc.py) - *Export an Update set in XML format to a human-readable format*
-- [text_formatter.js](./other/text_formatter.js) - *Add some format buttons into ServiceNow text areas. Paste the code in the URL field of a bookmark*
-
+| Name | Description | Link |
+| -- | -- | -- |
+| find_user_node.js | Returns the node which a user is logged-in to | [Link](./scripts/find_user_node.js) |
+| find_events_claimed_by_ghost_node.js | Returns events claimed by nodes which are not running in the instance anymore | [Link](./scripts/find_events_claimed_by_ghost_node.js) |
 
 ## Contributing
 
