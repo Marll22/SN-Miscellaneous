@@ -1,37 +1,10 @@
+# ServiceNow
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![license-shield]][license-url]
-
-<br />
-<p align="center">
-  <h1 align="center">Servicenow</h1>
-
-  <p align="center">
-    Some of my stuff related to ServiceNow
-    <br />
-    <a href="https://github.com/AlexAlvarez092/servicenow/issues/">Report Bug</a>
-    ·
-    <a href="https://github.com/AlexAlvarez092/servicenow/issues/">Request Feature</a>
-  </p>
-</p>
-
-<details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#scripts">Scripts</a></li>
-      </ul>
-    </li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
-</details>
 
 ## About The Project
 
@@ -45,6 +18,16 @@ In this project you will find some of my scripts, update sets, cheatsheets, and 
 | find_events_claimed_by_ghost_node.js | Returns events claimed by nodes which are not running in the instance anymore | Platform | Global | [Link](./scripts/find_events_claimed_by_ghost_node.js) |
 | ppm_fix_user_duplicated_capacity.js | Fix/print resource users with duplicated records in aggregate tables | PPM | Global | [Link](./scripts/ppm_fix_user_duplicated_capacity.js) |
 
+### Other
+
+| Name | Description | Link |
+| -- | -- | -- |
+| doc.py | Utility for parsing update sets (`update_set.xml`) and create a Markdown file containing information abput the update set and the manual actions | [Link](./other/doc.py) |
+
+### Docs
+
+* [MID Server Troubleshooting](./docs/mid_server_troubleshooting.md)
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -55,9 +38,10 @@ See `LICENSE` for more information.
 
 ## Contact
 
-Alex Alvarez - <alexalvarez@mail.com>
+* [alexalvarez.es](https://www.alexalvarez.es)
 
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+* [alexalvarez@mail.com](mailto:alexalvarez@mail.com)
+
 [contributors-shield]: https://img.shields.io/github/contributors/AlexAlvarez092/servicenow.svg?style=for-the-badge
 [contributors-url]: https://github.com/AlexAlvarez092/servicenow/graphs/contributors
 
