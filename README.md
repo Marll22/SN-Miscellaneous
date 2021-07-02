@@ -28,6 +28,10 @@ In this project you will find some of my scripts, update sets, cheatsheets, and 
 
 * [MID Server Troubleshooting](./docs/mid_server_troubleshooting.md)
 
+### HowTo
+
+* [How to attach a file to a mail by script](./howto/attach_file_mail.md)
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
