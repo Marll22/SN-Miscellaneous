@@ -12,25 +12,24 @@ In this project you will find some of my scripts, update sets, cheatsheets, and 
 
 ### Scripts
 
-| Name | Description | Application | Scope | Link |
-| -- | -- | -- | -- | -- |
-| find_user_node.js | Returns the node which a user is logged-in to | Platform | Global| [Link](./scripts/find_user_node.js) |
-| find_events_claimed_by_ghost_node.js | Returns events claimed by nodes which are not running in the instance anymore | Platform | Global | [Link](./scripts/find_events_claimed_by_ghost_node.js) |
-| ppm_fix_user_duplicated_capacity.js | Fix/print resource users with duplicated records in aggregate tables | PPM | Global | [Link](./scripts/ppm_fix_user_duplicated_capacity.js) |
+| Name | Description | Application | Scope |
+| -- | -- | -- | -- |
+| [`find_user_node.js`](./scripts/find_user_node.js) | Returns the node which a user is logged-in to | Platform | Global |
+| [`find_events_claimed_by_ghost_node.js`](./scripts/find_events_claimed_by_ghost_node.js) | Returns events claimed by nodes which are not running in the instance anymore | Platform | Global |
+| [`ppm_fix_user_duplicated_capacity.js`](./scripts/ppm_fix_user_duplicated_capacity.js) | Fix/print resource users with duplicated records in aggregate tables | PPM | Global |
 
 ### Other
 
-| Name | Description | Link |
-| -- | -- | -- |
-| doc.py | Utility for parsing update sets (`update_set.xml`) and create a Markdown file containing information abput the update set and the manual actions | [Link](./other/doc.py) |
+| Name | Description |
+| -- | -- |
+| [`doc.py`](./other/doc.py) | Utility for parsing update sets (`update_set.xml`) and create a Markdown file containing information abput the update set and the manual actions |
+| [`text_formatter.js`](.other/text_formatter.js) | Save as a browser bookmark, enhance the *Additional Comments* field including format |
 
 ### Docs
 
 * [MID Server Troubleshooting](./docs/mid_server_troubleshooting.md)
-
-### HowTo
-
-* [How to attach a file to a mail by script](./howto/attach_file_mail.md)
+* [How to attach a file to a mail by script](./docs/attach_file_mail.md)
+* [ServiceNow UI Developer Cheatsheet](./docs/ui_cheatsheet.md)
 
 ## Contributing
 
