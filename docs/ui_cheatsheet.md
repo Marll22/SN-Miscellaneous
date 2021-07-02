@@ -1,4 +1,4 @@
-# ServiceNow UI Developer cheat sheet
+# ServiceNow UI Developer Cheatsheet
 
 ## Utility URLs
 
