@@ -23,7 +23,7 @@ In this project you will find some of my scripts, update sets, cheatsheets, and 
 | Name | Description |
 | -- | -- |
 | [`doc.py`](./other/doc.py) | Utility for parsing update sets (`update_set.xml`) and create a Markdown file containing information abput the update set and the manual actions |
-| [`text_formatter.js`](.other/text_formatter.js) | Save as a browser bookmark, enhance the *Additional Comments* field including format |
+| [`text_formatter.js`](./other/text_formatter.js) | Save as a browser bookmark, enhance the *Additional Comments* field including format |
 
 ### Docs
 
