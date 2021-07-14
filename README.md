@@ -30,6 +30,7 @@ In this project you will find some of my scripts, update sets, cheatsheets, and 
 * [MID Server Troubleshooting](./docs/mid_server_troubleshooting.md)
 * [How to attach a file to a mail by script](./docs/attach_file_mail.md)
 * [ServiceNow UI Developer Cheatsheet](./docs/ui_cheatsheet.md)
+* [Opened for / Subject person](.docs/opened_for_subject_person.md)
 
 ## Contributing
 
