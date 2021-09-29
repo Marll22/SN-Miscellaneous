@@ -28,8 +28,9 @@ In this project you will find some of my scripts, update sets, cheatsheets, and 
 ### Docs
 
 * [Anchor Tag - ng-click()](.docs/anchor_ng_click.md)
-* [How to fake a workflow event](./docs/fake_workflow_event.md)
 * [How to attach a file to a mail by script](./docs/attach_file_mail.md)
+* [How to fake a workflow event](./docs/fake_workflow_event.md)
+* [How to sort a grouped list view](./docs/sort_grouped_list_view.md)
 * [MID Server Troubleshooting](./docs/mid_server_troubleshooting.md)
 * [Opened for / Subject person](.docs/opened_for_subject_person.md)
 * [ServiceNow UI Developer Cheatsheet](./docs/ui_cheatsheet.md)
