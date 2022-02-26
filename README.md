@@ -14,15 +14,15 @@ In this project you will find some of my scripts, update sets, cheatsheets, and 
 
 | Name | Description | Application | Scope |
 | -- | -- | -- | -- |
-| [`find_user_node.js`](./scripts/find_user_node.js) | Returns the node which a user is logged-in to | Platform | Global |
-| [`find_events_claimed_by_ghost_node.js`](./scripts/find_events_claimed_by_ghost_node.js) | Returns events claimed by nodes which are not running in the instance anymore | Platform | Global |
-| [`ppm_fix_user_duplicated_capacity.js`](./scripts/ppm_fix_user_duplicated_capacity.js) | Fix/print resource users with duplicated records in aggregate tables | PPM | Global |
+| [`user_node.js`](./scripts/user_node.js) | Returns the node which a user is logged-in to | Platform | Global |
+| [`stuck_event.js`](./scripts/stuck_event.js) | Returns events claimed by nodes which are not running in the instance anymore | Platform | Global |
+| [`ppm_duplicated_capacity.js`](./scripts/ppm_duplicated_capacity.js) | Fix/print resource users with duplicated records in aggregate tables | PPM | Global |
 
 ### Other
 
 | Name | Description |
 | -- | -- |
-| [`doc.py`](./other/doc.py) | Utility for parsing update sets (`update_set.xml`) and create a Markdown file containing information abput the update set and the manual actions |
+| [`doc.py`](./other/doc.py) | Utility for parsing update sets (`update_set.xml`) and create a Markdown file containing information aoput the update set and the manual actions |
 | [`text_formatter.js`](./other/text_formatter.js) | Save as a browser bookmark, enhance the *Additional Comments* field including format |
 
 ### Docs
