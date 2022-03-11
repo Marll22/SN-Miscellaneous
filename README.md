@@ -34,6 +34,7 @@ In this project you will find some of my scripts, update sets, cheatsheets, and 
 * [MID Server Troubleshooting](./docs/mid_server_troubleshooting.md)
 * [Opened for / Subject person](.docs/opened_for_subject_person.md)
 * [ServiceNow UI Developer Cheatsheet](./docs/ui_cheatsheet.md)
+* [Underscore library snippets](./docs/underscore_library.md)
 
 ## Contributing
 
