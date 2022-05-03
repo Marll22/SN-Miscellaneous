@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?><unload unload_date="2022-05-03 14:49:59">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description>Update set review util created by David Martin Clavo</description>
+<inserted/>
+<name>Code Review</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>1d007e202f53011086b1f3ecf699b6b5</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-05-03 14:49:59</sys_created_on>
+<sys_id>fda1af6c2fd3011086b1f3ecf699b625</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-05-03 14:49:59</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ui_page_9f075b56c83fc410acd0b5e0cc53005f</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ui_page"&gt;&lt;sys_ui_page action="INSERT_OR_UPDATE"&gt;&lt;category&gt;general&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[(function() {
+    document.title = "Code Review for: $[GlideStringUtil.escapeHTML(updateSet.name)]";
+
+    jQuery("span.jump-link").click(function(event) {
+        var versionDiv = jQuery('div#' + jQuery(event.target).attr('jump_to_version'));
+        if (versionDiv.length) {
+            jQuery('html, body').animate({
+                scrollTop: versionDiv.offset().top
+            }, 500);
+        }
+    });
+})();
+
+function toggleInserts() {
+    jQuery("div.version-insert").toggle();
+}
+
+function toggleUpdates() {
+    jQuery("div.version-update").toggle();
+}
+
+function toggleDeletes() {
+    jQuery("div.version-delete").toggle();
+}]]&gt;&lt;/client_script&gt;&lt;description/&gt;&lt;direct&gt;false&lt;/direct&gt;&lt;endpoint/&gt;&lt;html&gt;&lt;![CDATA[&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null"&gt;
+	
+	&lt;j2:choose&gt;
+		&lt;j2:when test="$[!gs.hasRole('admin')]"&gt;
+			$[gs.getMessage('Security constraints prevent access to requested page')]
+		&lt;/j2:when&gt;
+
+		&lt;j2:otherwise&gt;
+
+			&lt;g2:evaluate&gt;
+				var updateSetID = RP.getParameterValue('update_set_id');
+				var updateSet = new GlideRecord('sys_update_set');
+				var updateSetFound = updateSet.get(updateSetID);
+
+				var diffHTML;
+				if(updateSetFound) {
+					diffHTML = UpdateSetDiffTools.getUpdateSetCodeReviewDiff(updateSetID.split(','));
+				}
+			&lt;/g2:evaluate&gt;
+
+			&lt;j2:choose&gt;
+
+				&lt;j2:when test="$[!updateSetFound]"&gt;
+					Could not find an Update Set with sys_id = $[updateSetID]
+				&lt;/j2:when&gt;
+
+				&lt;j2:otherwise&gt;
+					&lt;style type="text/css"&gt;
+						h1.page_title {
+							text-align: center;
+							margin-bottom: 30px;
+						}
+						h1.page_title a, div.config-object-list-div a {
+							color: black;
+							text-decoration: underline;
+						}
+						div#visibility-toggle-controls {
+							margin-bottom: 20px;
+						}
+						div#visibility-toggle-controls input, div#visibility-toggle-controls label {
+							margin-bottom: 5px;
+						}
+						div#visibility-toggle-controls label {
+							margin-left: 5px;
+							margin-right: 25px;
+						}
+						div#after-config-object-lists {
+							clear: both;
+						}
+						div.config-object-list-div {
+							max-width: 500px;
+							float: left;
+							width: 33%;
+							margin-bottom: 20px;
+						}
+						span.jump-link, div.config-object-list-div a.customer-update-jump-link {
+							cursor: pointer;
+							color: rgb(102, 153, 204);
+							text-decoration: underline;
+						}
+						span.delete-can-be-cleaned {
+							color: darkred;
+						}
+						div.update_separator {
+							margin-bottom: 20px;
+						}
+						div.version_title_div {
+							line-height: 20px;
+						}
+						a.config_record_link, a.update_set_link {
+							color: white;
+							text-decoration: underline;
+						}
+						table.diff td.replace.whitespace-change-only {
+							background-color: #FFF19C;
+						}
+						table.diff td.insert.whitespace-change-only {
+							background-color: #CCFFCC;
+						}
+						table.diff td.delete.whitespace-change-only {
+							background-color: #FFCCCC;
+						}
+					&lt;/style&gt;
+
+					&lt;h1 class="page_title"&gt;
+						Code Review for Update Set:$[SP]
+						&lt;a href="sys_update_set.do?sys_id=$[updateSetID]" target="_blank"&gt;$[GlideStringUtil.escapeHTML(updateSet.name)]&lt;/a&gt;
+					&lt;/h1&gt;
+
+					&lt;div id="visibility-toggle-controls"&gt;
+						&lt;input type="checkbox" id="show-inserts" name="show-inserts" checked="true" onchange="toggleInserts()"/&gt;
+						&lt;label for="show-inserts"&gt;Show Inserts&lt;/label&gt;
+						&lt;input type="checkbox" id="show-updates" name="show-updates" checked="true" onchange="toggleUpdates()" /&gt;
+						&lt;label for="show-updates"&gt;Show Updates&lt;/label&gt;
+						&lt;input type="checkbox" id="show-deletes" name="show-deletes" checked="true" onchange="toggleDeletes()" /&gt;
+						&lt;label for="show-deletes"&gt;Show Deletes&lt;/label&gt;
+					&lt;/div&gt;
+
+					&lt;div&gt;
+						&lt;g2:no_escape&gt;$[diffHTML]&lt;/g2:no_escape&gt;
+					&lt;/div&gt;
+				&lt;/j2:otherwise&gt;
+			&lt;/j2:choose&gt;
+		&lt;/j2:otherwise&gt;
+	&lt;/j2:choose&gt;
+&lt;/j:jelly&gt;]]&gt;&lt;/html&gt;&lt;name&gt;update_set_code_review&lt;/name&gt;&lt;processing_script/&gt;&lt;sys_class_name&gt;sys_ui_page&lt;/sys_class_name&gt;&lt;sys_created_by&gt;TAAMADAS&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2020-03-29 12:20:22&lt;/sys_created_on&gt;&lt;sys_id&gt;9f075b56c83fc410acd0b5e0cc53005f&lt;/sys_id&gt;&lt;sys_mod_count&gt;55&lt;/sys_mod_count&gt;&lt;sys_name&gt;update_set_code_review&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ui_page_9f075b56c83fc410acd0b5e0cc53005f&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;alealvar&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-01-27 16:21:19&lt;/sys_updated_on&gt;&lt;/sys_ui_page&gt;&lt;/record_update&gt;</payload>
+<payload_hash>1252629185</payload_hash>
+<remote_update_set display_value="Code Review">fda1af6c2fd3011086b1f3ecf699b625</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-05-03 14:49:59</sys_created_on>
+<sys_id>7da1af6c2fd3011086b1f3ecf699b626</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>180899fbbd60000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-05-03 14:49:59</sys_updated_on>
+<table/>
+<target_name>update_set_code_review</target_name>
+<type>UI Page</type>
+<update_domain>global</update_domain>
+<update_guid>23ed1d39c351c5508c63072f47090ba2</update_guid>
+<update_guid_history>23ed1d39c351c5508c63072f47090ba2:1252629185,b700a16db15c10108a3aa4514e2a4ccc:115463754,b8ff556d705c1010ae2b7110f6ba7165:-546960321,23afdd2d8f5c1010c70ed0fbecf95004:83880595,673d99159718981020df9f2a45b54d60:-1569307683,1dbbd515a918981029a5364b9a07a552:-381782543,24dc236f31b70410aca6bc30d9eeec8f:1118850569,9abc636fbdb70410b40bd913b35e02bf:1026971038,cb3cab2facb704105f2f9518fa494885:1496617807,f97befeb14b704109892cb6ae66770b4:1620824981,e63befeb52b70410b46359ba460816f8:-173097233,5a2be7ab51b70410fe66171fbb0c1d53:1985444642,fa1ba72bbab704100fe4698a6efcbdd3:-1388620728,36da232b22b70410a02baecd1335dbb3:207461198,da1ae3a705b70410f9b427f92f16c461:624270975,a50aaf6748b70410918218961db37488:319407598,56b9ab6774b70410c9b19fa9168dd3b0:-228927058,8379e7674db70410655192d70a6acfd4:542270501,6a49e76750b704105ad4c44376b768cf:981549176,84ad7ce71afbc010f42472c213050ef4:-1871025125,a44dfce793fbc0102b5998e48986fc25:139540714,8cbc3ce7edfbc01055a47878eb1c5674:-24747497,979970a759fbc010523b341a82286dc8:476767424,9969b86777fbc0100cf8c306e29664ea:236136296,c8d870a7f1fbc0106f3d4b74b152bebc:-535454583,9db83467e4fbc0104498bf7510746cb2:265326042,47987867f2fbc0102d69c1eadfa136f0:1124350896,5f38706707fbc010241b160c05e329f8:-710143331,38a53ce37bfbc01089bd3c5be6b19a4c:-1168330759,2895b0275afbc010a716835ab5f295b3:1848535943,8715b8e3bafbc01043d2386bcab53bf4:-1613244832,fbe43ce329fbc01081783e9e1d2a162b:1995104269,6a1c7bd6557fc410b40de4171ef9a1d1:-1853770613,a7bb3fd6e17fc4100343f433aceaa8e6:-1577184984,88eaf3d6467fc410723e844f66a138d3:-1692800770,9c5ab3d6237fc4106e9ff005ad301dbf:1741088341,043a3b96037fc410ce51533a349b54f6:-494686474,62c43316267fc410d685b2561eb9c95f:-1152142711,8674bfd26c7fc41000471e58b91ebe49:-616457413,4544b7d29d7fc410705a2077f6a40b1b:-2089195750,4844fbd2b37fc41028cda55c52062695:35905419,ab243fd2897fc41065a956c6d091bab8:-2089195750,d341b792367fc410bbc9eb34c857534a:996075219,a84133920a7fc4108f302e4f0bde4a1f:-384808430,3a213792717fc410832e380211e1e20e:-636946317,a1113f52fb7fc410ceeac360937ca28a:-2077392970,635f1f5a293fc410d048c6f442629f56:821648548,807b175a9b3fc410d43b713bed5d2457:-446825105,e54bd35a563fc4108b91b9cd86a21dae:1914632425,ec3b9f1a953fc4100b978be5b2b8cfc4:307339081,617a9b1ae13fc41094d3463c45128787:-1818545706,ad6adb1a603fc410e7ee7e65d72e803c:1408680943,08c9931a1d3fc410c35d1984406cc5c5:-1001543233,c9b9d71a9d3fc410a902346c4e40d24f:1359793634,2b99571af63fc410af1e0b95a76003a7:-323309278,17271b56b53fc4105bafae3c9dd91669:-428845400</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_script_include_397b975ac83fc410acd0b5e0cc530022</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;global.UpdateSetDiffTools&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;description/&gt;&lt;name&gt;UpdateSetDiffTools&lt;/name&gt;&lt;script&gt;&lt;![CDATA[var UpdateSetDiffTools = {
+
+    /**SNDOC
+    @name getUpdateSetCodeReviewDiff
+    @param {Array&lt;String&gt;} [updateSetIDs] - sys_update_set.sys_id
+    @returns {String} HTML text
+    @example
+    var ans = UpdateSetDiffTools.getUpdateSetCodeReviewDiff("19c51b16c83fc410acd0b5e0cc5300fd","397b975ac83fc410acd0b5e0cc530022");
+    */
+    getUpdateSetCodeReviewDiff: function (updateSetIDs) {
+
+        var versions = UpdateSetDiffTools._getUpdateSetsLastVersions(updateSetIDs);
+
+        var headerHtml = "";
+        var bodyHtml = "";
+
+        var inserts = [];
+        var updates = [];
+        var deletes = [];
+
+        // For each tuple of two versions (previous and recent), return the comparison
+        for (var v = 0; v &lt; versions.length; v++) {
+            var previousVersion = versions[v].previousVersion;
+            var newVersion = versions[v].newVersion;
+
+            var rightVersion = new GlideRecord("sys_update_version");
+            var rightVersionFound = newVersion &amp;&amp; rightVersion.get(newVersion.id);
+
+            var leftVersion = new GlideRecord("sys_update_version");
+            var leftVersionFound = previousVersion &amp;&amp; leftVersion.get(previousVersion.id);
+
+            if (rightVersionFound) {
+                var sectionCssClassName = 'version-';
+                var htmlLine = UpdateSetDiffTools._getVersionLabel(rightVersion) + " (&lt;span class='jump-link' jump_to_version='" + rightVersion.sys_id + "'&gt;jump to diff&lt;/span&gt;)";
+
+                if (rightVersion.action == 'DELETE') {
+                    sectionCssClassName += 'delete';
+                    if (!leftVersionFound) {
+                        htmlLine = '&lt;span class="delete-can-be-cleaned" title="This is a DELETE of an object that did not exist before this Update Set. Please consider removing the customer update from the Update Set."&gt;CAN BE CLEANED:&amp;nbsp;&lt;/span&gt;' + htmlLine;
+                        htmlLine += " (&lt;a class='customer-update-jump-link' href='sys_update_xml_list.do?sysparm_query=name=" + rightVersion.name + "^update_set=" + rightVersion.source + "' target='_blank'&gt;jump to Customer Update&lt;/a&gt;)";
+                    }
+                    deletes.push(htmlLine);
+                } else if (!leftVersionFound) {
+                    sectionCssClassName += 'insert';
+                    inserts.push(htmlLine);
+                } else {
+                    sectionCssClassName += 'update';
+                    updates.push(htmlLine);
+                }
+                var sectionHtmlId = rightVersion.sys_id;
+                bodyHtml += "&lt;div class='" + sectionCssClassName + "' id='" + sectionHtmlId + "'&gt;";
+            }
+
+            if (rightVersionFound &amp;&amp; leftVersionFound) {
+                bodyHtml += UpdateSetDiffTools._getCompareVersionsHTML(leftVersion, rightVersion);
+            } else if (rightVersionFound) {
+                bodyHtml += UpdateSetDiffTools._getRightVersionOnlyHTML(rightVersion);
+            }
+            if (rightVersionFound || leftVersionFound) {
+                bodyHtml += "&lt;div class='update_separator'&gt;&amp;nbsp;&lt;/div&gt;";
+            }
+            if (rightVersionFound) {
+                bodyHtml += "&lt;/div&gt;";
+            }
+        }
+
+        var i;
+
+        headerHtml += "&lt;div class='config-object-list-div'&gt;&lt;strong&gt;List of INSERTS:&lt;/strong&gt;&lt;ul&gt;";
+        for (i = 0; i &lt; inserts.length; i++) {
+            headerHtml += "&lt;li&gt;" + inserts[i] + "&lt;/li&gt;";
+        }
+        headerHtml += "&lt;/ul&gt;&lt;/div&gt;&lt;div class='config-object-list-div'&gt;&lt;strong&gt;List of UPDATES:&lt;/strong&gt;&lt;ul&gt;";
+        for (i = 0; i &lt; updates.length; i++) {
+            headerHtml += "&lt;li&gt;" + updates[i] + "&lt;/li&gt;";
+        }
+        headerHtml += "&lt;/ul&gt;&lt;/div&gt;&lt;div class='config-object-list-div'&gt;&lt;strong&gt;List of DELETES:&lt;/strong&gt;&lt;ul&gt;";
+        for (i = 0; i &lt; deletes.length; i++) {
+            headerHtml += "&lt;li&gt;" + deletes[i] + "&lt;/li&gt;";
+        }
+        headerHtml += "&lt;/ul&gt;&lt;/div&gt;&lt;div id='after-config-object-lists'&gt;&amp;nbsp;&lt;/div&gt;";
+
+        return headerHtml + bodyHtml;
+    },
+
+    _getVersionListHTML: function (versions) {
+        var inserts = [];
+        var updates = [];
+        var deletes = [];
+
+        for (var v = 0; v &lt; versions.length; v++) {
+            var newVersion = versions[v].newVersion;
+
+            var rightVersion = new GlideRecord("sys_update_version");
+            var rightVersionFound = newVersion &amp;&amp; rightVersion.get(newVersion.id);
+
+            var leftVersion = new GlideRecord("sys_update_version");
+            var leftVersionFound = previousVersion &amp;&amp; leftVersion.get(previousVersion.id);
+
+            if (rightVersionFound) {
+                if (!leftVersionFound) {
+                    inserts.push({
+                        label: UpdateSetDiffTools._getVersionLabel(rightVersion),
+                        url: ""
+                    });
+                } else if (rightVersion.action == 'DELETE') {
+                    updates.push({
+                        name: "",
+                        url: ""
+                    });
+                } else {
+                    deletes.push({
+                        name: "",
+                        url: ""
+                    });
+                }
+            }
+        }
+    },
+
+    /**
+     * @param  {Array of sys_id} updateSetIDs
+     * @return {Array}
+     */
+    _getUpdateSetsLastVersions: function (updateSetIDs) {
+        var result = [];
+        var updatedRecords = UpdateSetDiffTools._getUpdatedRecords(updateSetIDs);
+
+        for (var i = 0; i &lt; updatedRecords.length; i++) {
+            var versionsToCompare = UpdateSetDiffTools._findMostRecentAndPreviousVersions(updatedRecords[i].id, updateSetIDs);
+            result.push({
+                recordId: updatedRecords[i].id,
+                recordUpdateName: updatedRecords[i].updateName,
+                recordName: updatedRecords[i].name,
+                recordTable: updatedRecords[i].table,
+                recordTableDisplayName: updatedRecords[i].tableDisplayName,
+                newVersion: versionsToCompare.mostRecent,
+                previousVersion: versionsToCompare.previous
+            });
+        }
+
+        result.sort(function (a, b) {
+            if (a.recordTableDisplayName != b.recordTableDisplayName) {
+                return a.recordTableDisplayName.localeCompare(b.recordTableDisplayName);
+            } else if (a.recordTable != b.recordTable) {
+                return a.recordTable.localeCompare(b.recordTable);
+            } else {
+                return a.recordName.localeCompare(b.recordName);
+            }
+        });
+
+        return result;
+    },
+
+    /**
+     * @param  {Array of sys_id} updateSetIDs
+     * @return {Array}
+     */
+    _getUpdatedRecords: function (updateSetIDs) {
+        var result = {}; // a set of objects representing the customer updates. key=sys_id of the customer update
+
+        for (var i = 0; i &lt; updateSetIDs.length; i++) {
+            var customerUpdates = new GlideRecord("sys_update_xml");
+            customerUpdates.addQuery("update_set", updateSetIDs[i]);
+            customerUpdates.query();
+
+            while (customerUpdates.next()) {
+                var configRecord = new GlideRecord("sys_metadata");
+                configRecord.addQuery("sys_update_name", customerUpdates.name);
+                configRecord.query();
+                if (configRecord.next()) {
+                    result[String(configRecord.sys_id)] = {
+                        id: String(configRecord.sys_id),
+                        updateName: String(configRecord.sys_update_name),
+                        name: String(configRecord.sys_name),
+                        table: String(configRecord.sys_class_name),
+                        tableDisplayName: configRecord.sys_class_name.getDisplayValue()
+                    };
+                }
+            }
+        }
+
+        return UpdateSetDiffTools._transformSetToArray(result);
+    },
+
+    /**
+     * @param  {String}	configRecordId : the sys_id of a sys_metadata record
+     * @param  {Array of sys_id} updateSetIDs
+     * @return {Object}
+     */
+    _findMostRecentAndPreviousVersions: function (configRecordId, updateSetIDs) {
+
+        var result = {
+            mostRecent: null,
+            previous: null
+        };
+
+        var configRecord = new GlideRecord("sys_metadata");
+        if (configRecord.get(configRecordId)) {
+
+            var versions = new GlideRecord("sys_update_version");
+            versions.addQuery("name", configRecord.sys_update_name);
+            versions.orderByDesc("sys_created_on");
+            versions.query();
+
+            var encounteredUpdateSet = false;
+
+            while (versions.next()) {
+
+                if (UpdateSetDiffTools._isVersionInAnyUpdateSet(versions, updateSetIDs)) {
+                    encounteredUpdateSet = true;
+                    if (!result.mostRecent) {
+                        result.mostRecent = {
+                            id: String(versions.sys_id),
+                            date: versions.sys_created_on.getDisplayValue()
+                        };
+                    }
+                }
+
+                if (!UpdateSetDiffTools._isVersionInAnyUpdateSet(versions, updateSetIDs) &amp;&amp; encounteredUpdateSet) {
+                    result.previous = {
+                        id: String(versions.sys_id),
+                        date: versions.sys_created_on.getDisplayValue()
+                    };
+                    encounteredUpdateSet = false;
+                }
+            }
+        }
+
+        return result;
+    },
+
+    /**
+     * @param  {GlideRecord sys_update_version}	versionRecord
+     * @param  {Array of sys_id}				updateSetIDs
+     * @return {Boolean}
+     */
+    _isVersionInAnyUpdateSet: function (versionRecord, updateSetIDs) {
+        for (var i = 0; i &lt; updateSetIDs.length; i++) {
+            if (versionRecord.source == updateSetIDs[i]) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    /**
+     * @param  {GlideRecord sys_update_version}	leftVersion
+     * @param  {GlideRecord sys_update_version}	rightVersion
+     * @return {String} HTML text
+     */
+    _getCompareVersionsHTML: function (leftVersion, rightVersion) {
+        var diffHelper = new DiffHelper();
+
+        var leftTitle = "&lt;div class='version_title_div'&gt;PREVIOUS: " + UpdateSetDiffTools._getVersionLabel(leftVersion) + " (" + leftVersion.sys_created_on.getDisplayValue() + ")&lt;/div&gt;";
+
+        if (leftVersion.source_table == 'sys_update_set') {
+            var leftUpdateSet = new GlideRecord('sys_update_set');
+            if (leftUpdateSet.get(leftVersion.source)) {
+                leftTitle += "&lt;div class='version_title_div'&gt;Update Set: &lt;a href='sys_update_set.do?sys_id=" + leftUpdateSet.sys_id + "' target='_blank' class='update_set_link'&gt;" + leftUpdateSet.name + "&lt;/a&gt;&lt;/div&gt;";
+            }
+        }
+
+
+
+        var rightTitle = "NEW: " + UpdateSetDiffTools._getVersionLabel(rightVersion) + " (" + rightVersion.sys_created_on.getDisplayValue() + ")";
+
+        return diffHelper.getTemplate(diffHelper.diffXMLString(leftVersion.payload, rightVersion.payload), leftTitle, rightTitle);
+    },
+
+    /**
+     * @param  {GlideRecord sys_update_version}	rightVersion
+     * @return {String} HTML text
+     */
+    _getRightVersionOnlyHTML: function (rightVersion) {
+        var diffHelper = new DiffHelper();
+
+        return diffHelper.getTemplate(diffHelper.diffXMLString(rightVersion.payload, rightVersion.payload),
+            "PREVIOUS: -- There is no previous version of this file --",
+            "NEW: " + UpdateSetDiffTools._getVersionLabel(rightVersion) + " (" + rightVersion.sys_created_on.getDisplayValue() + ")");
+    },
+
+    /**
+     * @param  {GlideRecord sys_update_version}	version
+     * @return {String} HTML text
+     */
+    _getVersionLabel: function (version) {
+        var MAX_LABEL_LENGTH = 60;
+        var result = "";
+
+        if (version.isValidRecord()) {
+            var configRecordDisplayName = version.record_name.toString(); //GlideStringUtil.escapeHTML(version.record_name.toString());
+            if (!configRecordDisplayName) {
+                return "";
+            }
+
+            result = configRecordDisplayName;
+            if (result.length &gt; MAX_LABEL_LENGTH) {
+                result = result.slice(0, (MAX_LABEL_LENGTH - 3)) + "...";
+            }
+            result = version.type + ": " + result;
+
+            var configRecord = new GlideRecord('sys_metadata');
+            if (configRecord.get('sys_update_name', version.name)) {
+                var url = configRecord.sys_class_name + ".do?sys_id=" + configRecord.sys_id;
+                result = "&lt;a href='" + url + "' target='_blank' class='config_record_link'&gt;" + result + "&lt;/a&gt;";
+            }
+        }
+
+        return result;
+    },
+
+    /**
+     * @param {Object} setObject
+     * @return {Array}
+     */
+    _transformSetToArray: function (setObject) {
+        var result = [];
+        for (var i in setObject) {
+            result.push(setObject[i]);
+        }
+        return result;
+    },
+
+    _removeDuplicatedWhitespaceRE: /\s+/g,
+
+    modifyChangeCodeIfWhitespaceChangeOnly: function (change, baseTextLine, newTextLine) {
+        var result = change;
+
+        baseTextLine = trim(baseTextLine.replace(UpdateSetDiffTools._removeDuplicatedWhitespaceRE, " "));
+        newTextLine = trim(newTextLine.replace(UpdateSetDiffTools._removeDuplicatedWhitespaceRE, " "));
+
+        if (change == "replace" &amp;&amp; trim(baseTextLine) == trim(newTextLine) ||
+            change == "insert" &amp;&amp; trim(newTextLine).length === 0 ||
+            change == "delete" &amp;&amp; trim(baseTextLine).length === 0) {
+            result += " whitespace-change-only";
+        }
+        return result;
+    },
+
+};]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;TAAMADAS&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2020-03-29 12:40:03&lt;/sys_created_on&gt;&lt;sys_id&gt;397b975ac83fc410acd0b5e0cc530022&lt;/sys_id&gt;&lt;sys_mod_count&gt;58&lt;/sys_mod_count&gt;&lt;sys_name&gt;UpdateSetDiffTools&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_397b975ac83fc410acd0b5e0cc530022&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;alealvar&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-01-27 16:30:14&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-1987843874</payload_hash>
+<remote_update_set display_value="Code Review">fda1af6c2fd3011086b1f3ecf699b625</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-05-03 14:49:59</sys_created_on>
+<sys_id>b1a1af6c2fd3011086b1f3ecf699b626</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>180899fbc040000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-05-03 14:49:59</sys_updated_on>
+<table/>
+<target_name>UpdateSetDiffTools</target_name>
+<type>Script Include</type>
+<update_domain>global</update_domain>
+<update_guid>1aff11f91a51c55076f1d32405dbc383</update_guid>
+<update_guid_history>1aff11f91a51c55076f1d32405dbc383:-1987843874,a00f59b9b151c5504c0825d5a3ebbad4:2062867086,7d00656d595c1010ff86b916a5fc3b12:2047108812,879f916db55c10108b8c690ebafac6aa:2116496257,f27f516da15c101011734f07daecaab1:2137339673,618c9915661898103b74d21af4b21d90:-1574967972,c70cd51504189810df1af77f49bfd859:-928393199,4beb1115431898100270c0fa4c86ecb4:-12845757,95cb51154d189810700df28695bc71a1:125293339,2f9b11154c18981069a2fff6d97cb142:-1149778709,d83b511506189810296e5626c1cea8cf:655216155,226c2f2f4bb70410a3c4ae7e87d5e1b7:-1214826007,932ca72ff2b704101e5b5e656794cec0:1768273782,b40ae3a7f1b704109e215ae2ab0f2953:-968145203,9459e76757b70410a2a3d63141deefe4:-1148429313,e4096b273cb7041002165d842d0478b5:904817359,f1d82f27bdb704103a87a83e55b7994c:1195119097,0218af63e0b7041065912aa51ee76d24:1056192516,2c8dbce70ffbc010643ac1ae1a26bca9:-1575935668,dbecbce780fbc010937f24153cd622a4:756015692,5d8cb4e7eafbc0105586890dd334cb37:-1475358287,953c7ca773fbc01072fe85606e0f5954:-197604909,cf1c30e700fbc010f89a7948bba32c4b:1903356316,e3ebb4e774fbc0109021d57a9bfc7502:1653130033,5a0ab4a78efbc0101559d29e02f5e493:1972688536,a489f4a703fbc01046de1389cd5ad961:1258105812,9dd77867d4fbc010d5cb7229079279de:2107340372,1c57b067d8fbc01053876a51c611e807:-1719249591,d4e6706739fbc01072b64ac30a2db7ff:-253378983,39c3f4e3aefbc010c03006414fe624c9:-1611695018,fd0cb7d6e37fc410248df03f2e2e0b52:1402148527,9ebbfbd6887fc41096773f138371ff80:-2045868817,1a8bfbd6907fc410d79490a030c95866:-1519024303,94543f920c7fc410ffc9185718cc77ea:-1491796281,be4477d2f17fc410015041389cc19229:-1140000694,b89377d2b37fc410724789bdb44ff98c:1853652034,f84337d2427fc4108ac210e55f6a8ecd:-1013220643,87617792bc7fc410508e53902119e45e:543590622,c78d2712337fc410bc1fee280989494d:837959972,5b5d2f12ab7fc4100acba8450418e4ad:1900292894,3a3deb12cd7fc410a793167590892db3:-876582199,5ceca712037fc410b75e3ef905c6c99e:531066083,269c27120b7fc4101cd2ba35525ed148:-404119289,e27ca3127c7fc410c43b334ebda2ed2b:-832361903,545c2712f57fc41004f3d1ec979ca43a:147181782,b92ce312097fc4105b57fb227ba01219:241658145,b8eb6312297fc410672b2607b2e6a497:-1654746289,10896f9ecd3fc4107abc307fa13f0c2e:-487975619,46f823de513fc410801ca6bbff654367:-403219464,b8a86f9e793fc4108b4da236107dc00e:1825180237,90382b9ed83fc410c39ab8af3895af8a:820059832,80f7e39e923fc410bc8479cf990001bc:28896355,18c7a79e0e3fc410229bc2b3d805efc6:-1453810969,9b5027da683fc4100062a31a30da57fa:-478468684,5a10a3dae43fc410b673d353b35a49b6:1898728505,7d00a3da343fc410d048108968881c68:788439134,a8df575ae03fc4104f1e22a5594f4beb:195491139,f6cf13da163fc410783fed5b270d8eb4:2075337365,fbab575a783fc410f89d107707b773b7:263003874</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ui_action_19c51b16c83fc410acd0b5e0cc5300fd</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="774190f01f1310005a3637b8ec8b70ef" table="sys_ui_action"&gt;&lt;sys_ui_action action="INSERT_OR_UPDATE"&gt;&lt;action_name&gt;code_review&lt;/action_name&gt;&lt;active&gt;true&lt;/active&gt;&lt;client&gt;true&lt;/client&gt;&lt;client_script_v2&gt;&lt;![CDATA[function onClick(g_form) {
+
+}]]&gt;&lt;/client_script_v2&gt;&lt;comments&gt;Open a page which shows all the changes done in this Update Set. For each element modified, a diff is shown compared to the previous version.&lt;/comments&gt;&lt;condition&gt;gs.hasRole('admin')&lt;/condition&gt;&lt;form_action&gt;true&lt;/form_action&gt;&lt;form_button&gt;false&lt;/form_button&gt;&lt;form_button_v2&gt;false&lt;/form_button_v2&gt;&lt;form_context_menu&gt;false&lt;/form_context_menu&gt;&lt;form_link&gt;true&lt;/form_link&gt;&lt;form_menu_button_v2&gt;false&lt;/form_menu_button_v2&gt;&lt;form_style/&gt;&lt;hint/&gt;&lt;isolate_script&gt;false&lt;/isolate_script&gt;&lt;list_action&gt;false&lt;/list_action&gt;&lt;list_banner_button&gt;false&lt;/list_banner_button&gt;&lt;list_button&gt;false&lt;/list_button&gt;&lt;list_choice&gt;false&lt;/list_choice&gt;&lt;list_context_menu&gt;false&lt;/list_context_menu&gt;&lt;list_link&gt;false&lt;/list_link&gt;&lt;list_save_with_form_button&gt;false&lt;/list_save_with_form_button&gt;&lt;list_style/&gt;&lt;messages/&gt;&lt;name&gt;Code Review&lt;/name&gt;&lt;onclick&gt;codeReview()&lt;/onclick&gt;&lt;order&gt;11000&lt;/order&gt;&lt;script&gt;&lt;![CDATA[function codeReview() {
+    var updateSetID = g_form.getUniqueValue();
+    window.open("update_set_code_review.do?update_set_id=" + updateSetID);
+}]]&gt;&lt;/script&gt;&lt;show_insert&gt;false&lt;/show_insert&gt;&lt;show_multiple_update&gt;false&lt;/show_multiple_update&gt;&lt;show_query&gt;false&lt;/show_query&gt;&lt;show_update&gt;true&lt;/show_update&gt;&lt;sys_class_name&gt;sys_ui_action&lt;/sys_class_name&gt;&lt;sys_created_by&gt;TAAMADAS&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2020-03-29 12:17:00&lt;/sys_created_on&gt;&lt;sys_domain&gt;774190f01f1310005a3637b8ec8b70ef&lt;/sys_domain&gt;&lt;sys_domain_path/&gt;&lt;sys_id&gt;19c51b16c83fc410acd0b5e0cc5300fd&lt;/sys_id&gt;&lt;sys_mod_count&gt;8&lt;/sys_mod_count&gt;&lt;sys_name&gt;Code Review&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ui_action_19c51b16c83fc410acd0b5e0cc5300fd&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;alealvar&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-01-27 16:27:07&lt;/sys_updated_on&gt;&lt;table&gt;sys_update_set&lt;/table&gt;&lt;ui11_compatible&gt;false&lt;/ui11_compatible&gt;&lt;ui16_compatible&gt;false&lt;/ui16_compatible&gt;&lt;/sys_ui_action&gt;&lt;/record_update&gt;</payload>
+<payload_hash>1741404214</payload_hash>
+<remote_update_set display_value="Code Review">fda1af6c2fd3011086b1f3ecf699b625</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-05-03 14:49:59</sys_created_on>
+<sys_id>b9a1af6c2fd3011086b1f3ecf699b626</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>180899fbbfc0000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-05-03 14:49:59</sys_updated_on>
+<table>sys_update_set</table>
+<target_name>Code Review</target_name>
+<type>UI Action</type>
+<update_domain>774190f01f1310005a3637b8ec8b70ef</update_domain>
+<update_guid>ec4fddf10651c5507679e56889645608</update_guid>
+<update_guid_history>ec4fddf10651c5507679e56889645608:1741404214,3bbbd1755551c55027b98db04caa391d:-2092707221,b615052f2afbc0108b28843fa5213cbe:-1270303530,6bce7f5a9f7fc410b862216f60384a4d:-914535027,850ebf1a457fc410fd8efde46c458629:1663075798,61bc3bd6e37fc410485a08fdf1e0f1c3:-1537610726,d6e6d7568f3fc410d8c049fab1dce11d:-1490597096,b9d61756b13fc410d8325bd64167c193:-36253467,8a66df162e3fc41050648c602d90fb5a:941411288</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>

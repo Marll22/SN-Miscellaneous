@@ -1,0 +1,1083 @@
+<?xml version="1.0" encoding="UTF-8"?><unload unload_date="2022-03-30 21:23:57">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description>**Contains:**
+- REST API: Custom Incident API
+- Script include: API_IncidentUtils
+- Script include: API_Utils</description>
+<inserted/>
+<name>Generic API</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>41eee5391b66051015ab1f4a234bcb8a</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>5dc5fdb51ba6051015ab1f4a234bcb16</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_script_include_3a3e167b1b5a819015ab1f4a234bcb8d</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;public&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;global.API_IncidentUtils&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;description&gt;Bunch of utilities used by "Custom Incident API"&lt;/description&gt;&lt;name&gt;API_IncidentUtils&lt;/name&gt;&lt;script&gt;&lt;![CDATA[var API_IncidentUtils = Class.create();
+API_IncidentUtils.prototype = Object.extendsObject(API_Utils, {
+    initialize: function() {
+
+        this.logger = new global.GSLog('', 'API_ComponentUtils');
+        this.logger.includeTimestamp();
+        this.logger.setLevel(global.GSLog.DEBUG);
+
+        this.tableName = 'incident';
+        this.pk = 'number';
+
+        this.mapping = {
+			id: {
+				type: 'string',
+				create: false,
+				required: false,
+				update: false,
+				useQuery: true,
+				show: true,
+				display: true,
+				table: '',
+				fk: '',
+				run: '',
+				field: 'number'
+			},
+			shortDescription: {
+				type: 'string',
+				create: true,
+				required: true,
+				update: false,
+				useQuery: false,
+				show: true,
+				display: true,
+				table: '',
+				fk: '',
+				run: '',
+				field: 'short_description'
+			},
+			openedAt: {
+				type: 'date',
+				create: false,
+				required: false,
+				update: false,
+				useQuery: false,
+				show: true,
+				display: true,
+				table: '',
+				fk: '',
+				run: '',
+				field: 'opened_at'
+			},
+			caller: {
+				type: 'reference',
+				create: true,
+				required: true,
+				update: false,
+				useQuery: true,
+				show: true,
+				display: true,
+				table: 'sys_user',
+				fk: 'user_name',
+				run: '',
+				field: 'caller_id'
+			}
+		};
+    },
+
+    // TODO
+    canCreate: function(payload) {
+
+        for (var attr in payload) {
+
+            // Attribute not recognise
+            if (!this.mapping[attr]) {
+                err = new Error('Attribute not recognise: "' + attr + '"');
+                err.code = 400;
+                throw err;
+            }
+
+            // Attribute not allowed on POST
+            if (!this.mapping[attr].create) {
+                err = new Error('Attribute not allowed on POST operation: "' + attr + '"');
+                err.code = 400;
+                throw err;
+            }
+        }
+    },
+
+    // TODO
+    canUpdate: function(incidentNo, payload) {
+
+        for (var attr in payload) {
+
+            // Attribute not recognise
+            if (!this.mapping[attr]) {
+                err = new Error('Attribute not recognise: "' + attr + '"');
+                err.code = 400;
+                throw err;
+            }
+
+            // Attribute not allowed on POST
+            if (!this.mapping[attr].update) {
+                err = new Error('Attribute not allowed on PUT operation: "' + attr + '"');
+                err.code = 400;
+                throw err;
+            }
+        }
+    },
+	
+    type: 'API_IncidentUtils'
+});]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;alealvar&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-03-24 19:13:31&lt;/sys_created_on&gt;&lt;sys_id&gt;3a3e167b1b5a819015ab1f4a234bcb8d&lt;/sys_id&gt;&lt;sys_mod_count&gt;11&lt;/sys_mod_count&gt;&lt;sys_name&gt;API_IncidentUtils&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_3a3e167b1b5a819015ab1f4a234bcb8d&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;alealvar&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-03-24 21:24:10&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+<payload_hash>2072858601</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>11c5fdb51ba6051015ab1f4a234bcb17</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a3c0000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>API_IncidentUtils</target_name>
+<type>Script Include</type>
+<update_domain>global</update_domain>
+<update_guid>024cfeff1dda8190d5649c1c5b05e50e</update_guid>
+<update_guid_history>024cfeff1dda8190d5649c1c5b05e50e:2072858601,635bf67f09da8190cc6a2f75b82317b4:1759092077,342a7a7f83da819031b9bffe8eeae3d6:-66372508,7199f63fb8da819072c2b1c74e2d1b57:-1380279024,5709bebb8eda8190a837f7b642fc0529:-1914192062,4ca87afb72da8190227129a2beee0fb6:-781757855,f7e5323b24da8190903fad6909a237c3:-1555511315,b965be73aeda819013cf198400522551:-322768421,bf262e73009a8190e8ef3998c1be9edd:1286593073,b040aebb605a81902d801bf6c53436fa:-717182065,144fd63b2b5a8190067ff8579103300f:998576979,8c6e5a7b795a8190d9b579830ab2ca1b:10844337</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_query_parameter_map_75ead2b71b5a819015ab1f4a234bcb3c</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter_map"><sys_ws_query_parameter_map action="INSERT_OR_UPDATE"><sys_class_name>sys_ws_query_parameter_map</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 18:58:26</sys_created_on><sys_id>75ead2b71b5a819015ab1f4a234bcb3c</sys_id><sys_mod_count>0</sys_mod_count><sys_name>42bad2771b5a819015ab1f4a234bcbac</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_query_parameter_map_75ead2b71b5a819015ab1f4a234bcb3c</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 18:58:26</sys_updated_on><web_service_operation display_value="putRecord">76d752b31b5a819015ab1f4a234bcb71</web_service_operation><web_service_query_parameter display_value="id">42bad2771b5a819015ab1f4a234bcbac</web_service_query_parameter></sys_ws_query_parameter_map></record_update>]]></payload>
+<payload_hash>-329299120</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>11c5fdb51ba6051015ab1f4a234bcb1a</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a260000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>42bad2771b5a819015ab1f4a234bcbac</target_name>
+<type>Scripted REST Query Parameter Associatio</type>
+<update_domain>global</update_domain>
+<update_guid>57ea92b7ec5a81900a7114278d9326bd</update_guid>
+<update_guid_history>57ea92b7ec5a81900a7114278d9326bd:-329299120</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_query_parameter_map_225c523b1b5a819015ab1f4a234bcbf8</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter_map"><sys_ws_query_parameter_map action="INSERT_OR_UPDATE"><sys_class_name>sys_ws_query_parameter_map</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 19:04:45</sys_created_on><sys_id>225c523b1b5a819015ab1f4a234bcbf8</sys_id><sys_mod_count>0</sys_mod_count><sys_name>580c16f71b5a819015ab1f4a234bcbc4</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_query_parameter_map_225c523b1b5a819015ab1f4a234bcbf8</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 19:04:45</sys_updated_on><web_service_operation display_value="getRecords">62a71e731b5a819015ab1f4a234bcb8e</web_service_operation><web_service_query_parameter display_value="limit">580c16f71b5a819015ab1f4a234bcbc4</web_service_query_parameter></sys_ws_query_parameter_map></record_update>]]></payload>
+<payload_hash>70128979</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>15c5fdb51ba6051015ab1f4a234bcb19</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a2e0000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>580c16f71b5a819015ab1f4a234bcbc4</target_name>
+<type>Scripted REST Query Parameter Associatio</type>
+<update_domain>global</update_domain>
+<update_guid>bb5c523b105a81905d0f4066fec5ebb0</update_guid>
+<update_guid_history>bb5c523b105a81905d0f4066fec5ebb0:70128979</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_query_parameter_461c5ef71b5a819015ab1f4a234bcbe1</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter"><sys_ws_query_parameter action="INSERT_OR_UPDATE"><example_value>active=true</example_value><name>query</name><required>false</required><short_description>Filter the records</short_description><sys_class_name>sys_ws_query_parameter</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 19:03:54</sys_created_on><sys_id>461c5ef71b5a819015ab1f4a234bcbe1</sys_id><sys_mod_count>0</sys_mod_count><sys_name>query</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_query_parameter_461c5ef71b5a819015ab1f4a234bcbe1</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 19:03:54</sys_updated_on><web_service_definition display_value="Custom Incident API">1c5756731b5a819015ab1f4a234bcb09</web_service_definition></sys_ws_query_parameter></record_update>]]></payload>
+<payload_hash>534724421</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>19c5fdb51ba6051015ab1f4a234bcb18</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a290000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>query</target_name>
+<type>Scripted REST Query Parameter</type>
+<update_domain>global</update_domain>
+<update_guid>572c9af70e5a819050dfaaa36322fb27</update_guid>
+<update_guid_history>572c9af70e5a819050dfaaa36322fb27:534724421</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_operation_62a71e731b5a819015ab1f4a234bcb8e</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ws_operation"&gt;&lt;sys_ws_operation action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;consumes&gt;application/json,application/xml,text/xml&lt;/consumes&gt;&lt;consumes_customized&gt;false&lt;/consumes_customized&gt;&lt;default_operation_uri/&gt;&lt;enforce_acl&gt;cf9d01d3e73003009d6247e603f6a990&lt;/enforce_acl&gt;&lt;http_method&gt;GET&lt;/http_method&gt;&lt;name&gt;getRecords&lt;/name&gt;&lt;operation_script&gt;&lt;![CDATA[(function process( /*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+
+    try {
+        var apiClient = new API_IncidentUtils();
+
+        var paginate = {
+            page: request.queryParams.page || 1,
+            perPage: request.queryParams.limit || 10
+        };
+
+        var query = apiClient.generateQuery(request.queryParams.query) || '';
+		
+		var sort = request.queryParams.sort || '';
+
+        return apiClient.getRecordList(query, paginate, sort);
+
+    } catch (e) {
+        gs.error('API failed to respond: ' + request.uri + ', Error: ' + JSON.stringify(e, 0, 3));
+        var responseError = new sn_ws_err.ServiceError();
+
+        if (e.code) {
+            responseError.setStatus(e.code);
+            switch (e.code) {
+                case 400:
+                    responseError.setMessage('Invalid request');
+                    responseError.setDetail(e);
+                    break;
+            }
+            return responseError;
+        }
+
+        responseError.setStatus(500);
+        responseError.setMessage('Internal server error occurred');
+        responseError.setDetail(e);
+        return responseError;
+    }
+
+})(request, response);]]&gt;&lt;/operation_script&gt;&lt;operation_uri&gt;/api/660033/inc&lt;/operation_uri&gt;&lt;produces&gt;application/json,application/xml,text/xml&lt;/produces&gt;&lt;produces_customized&gt;false&lt;/produces_customized&gt;&lt;relative_path&gt;/&lt;/relative_path&gt;&lt;request_example/&gt;&lt;requires_acl_authorization&gt;true&lt;/requires_acl_authorization&gt;&lt;requires_authentication&gt;true&lt;/requires_authentication&gt;&lt;requires_snc_internal_role&gt;true&lt;/requires_snc_internal_role&gt;&lt;short_description/&gt;&lt;sys_class_name&gt;sys_ws_operation&lt;/sys_class_name&gt;&lt;sys_created_by&gt;alealvar&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-03-24 18:44:27&lt;/sys_created_on&gt;&lt;sys_id&gt;62a71e731b5a819015ab1f4a234bcb8e&lt;/sys_id&gt;&lt;sys_mod_count&gt;6&lt;/sys_mod_count&gt;&lt;sys_name&gt;getRecords&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ws_operation_62a71e731b5a819015ab1f4a234bcb8e&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;alealvar&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-03-24 21:04:11&lt;/sys_updated_on&gt;&lt;web_service_definition display_value="Custom Incident API"&gt;1c5756731b5a819015ab1f4a234bcb09&lt;/web_service_definition&gt;&lt;web_service_version/&gt;&lt;/sys_ws_operation&gt;&lt;/record_update&gt;</payload>
+<payload_hash>903389364</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>1dc5fdb51ba6051015ab1f4a234bcb17</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a3a0000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>getRecords</target_name>
+<type>Scripted REST Resource</type>
+<update_domain>global</update_domain>
+<update_guid>99b7b67b2fda819043c1d7be1e88859f</update_guid>
+<update_guid_history>99b7b67b2fda819043c1d7be1e88859f:903389364,c2073e7b2dda8190fcd27ed7bc022352:-958050590,fbc5fef754da8190f97ae46224a30d8b:-1163773199,62fc163b935a8190d2140e72c2cd3b9c:-1974198960,f4791637af5a8190e4e9b62161b8f0b4:-136426158,02d7de73455a8190001811c91b592038:-1060259008,92b79e739a5a81900f027f4995c0f22c:-930829258</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_query_parameter_f596363b1bda819015ab1f4a234bcbc4</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter"><sys_ws_query_parameter action="INSERT_OR_UPDATE"><example_value>{ order: 'ASC', by: 'number' }</example_value><name>sort</name><required>false</required><short_description>Sort records</short_description><sys_class_name>sys_ws_query_parameter</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 20:59:47</sys_created_on><sys_id>f596363b1bda819015ab1f4a234bcbc4</sys_id><sys_mod_count>0</sys_mod_count><sys_name>sort</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_query_parameter_f596363b1bda819015ab1f4a234bcbc4</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 20:59:47</sys_updated_on><web_service_definition display_value="Custom Incident API">1c5756731b5a819015ab1f4a234bcb09</web_service_definition></sys_ws_query_parameter></record_update>]]></payload>
+<payload_hash>-984225002</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>51c5fdb51ba6051015ab1f4a234bcb19</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a380000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>sort</target_name>
+<type>Scripted REST Query Parameter</type>
+<update_domain>global</update_domain>
+<update_guid>bcb6b67b67da819043ae0f8ce8fb527e</update_guid>
+<update_guid_history>bcb6b67b67da819043ae0f8ce8fb527e:-984225002</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_query_parameter_42bad2771b5a819015ab1f4a234bcbac</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter"><sys_ws_query_parameter action="INSERT_OR_UPDATE"><example_value>INC0000001</example_value><name>id</name><required>true</required><short_description>Incident number</short_description><sys_class_name>sys_ws_query_parameter</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 18:58:02</sys_created_on><sys_id>42bad2771b5a819015ab1f4a234bcbac</sys_id><sys_mod_count>1</sys_mod_count><sys_name>id</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_query_parameter_42bad2771b5a819015ab1f4a234bcbac</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 18:58:46</sys_updated_on><web_service_definition display_value="Custom Incident API">1c5756731b5a819015ab1f4a234bcb09</web_service_definition></sys_ws_query_parameter></record_update>]]></payload>
+<payload_hash>-787087142</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>55c5fdb51ba6051015ab1f4a234bcb18</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a270000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>id</target_name>
+<type>Scripted REST Query Parameter</type>
+<update_domain>global</update_domain>
+<update_guid>c00b92b7295a81907dceb0474f34c235</update_guid>
+<update_guid_history>c00b92b7295a81907dceb0474f34c235:-787087142,e5da52b7285a81903be22939f8b3e1cc:787568259</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_operation_1ae79e731b5a819015ab1f4a234bcb66</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ws_operation"&gt;&lt;sys_ws_operation action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;consumes&gt;application/json,application/xml,text/xml&lt;/consumes&gt;&lt;consumes_customized&gt;false&lt;/consumes_customized&gt;&lt;default_operation_uri/&gt;&lt;enforce_acl&gt;cf9d01d3e73003009d6247e603f6a990&lt;/enforce_acl&gt;&lt;http_method&gt;DELETE&lt;/http_method&gt;&lt;name&gt;deleteRecord&lt;/name&gt;&lt;operation_script&gt;&lt;![CDATA[(function process( /*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+
+    try {
+        var apiClient = new API_IncidentUtils();
+        var incidentNo = request.queryParams.id;
+
+        return apiClient.deleteRecord(incidentNo);
+
+    } catch (e) {
+        gs.error('API failed to respond: ' + request.uri + ', Error: ' + JSON.stringify(e, 0, 3));
+
+        var responseError = new sn_ws_err.ServiceError();
+        if (e.code) {
+            responseError.setStatus(e.code);
+            switch (e.code) {
+                case 400:
+                    responseError.setMessage('Invalid request');
+                    responseError.setDetail(e);
+                    break;
+            }
+            return responseError;
+        }
+
+        //This code block will be executed only if an exception occur
+        responseError.setStatus(500);
+        responseError.setMessage('Internal server error occurred');
+        responseError.setDetail(e);
+        return responseError;
+    }
+
+})(request, response);]]&gt;&lt;/operation_script&gt;&lt;operation_uri&gt;/api/660033/inc&lt;/operation_uri&gt;&lt;produces&gt;application/json,application/xml,text/xml&lt;/produces&gt;&lt;produces_customized&gt;false&lt;/produces_customized&gt;&lt;relative_path&gt;/&lt;/relative_path&gt;&lt;request_example/&gt;&lt;requires_acl_authorization&gt;true&lt;/requires_acl_authorization&gt;&lt;requires_authentication&gt;true&lt;/requires_authentication&gt;&lt;requires_snc_internal_role&gt;true&lt;/requires_snc_internal_role&gt;&lt;short_description/&gt;&lt;sys_class_name&gt;sys_ws_operation&lt;/sys_class_name&gt;&lt;sys_created_by&gt;alealvar&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-03-24 18:45:32&lt;/sys_created_on&gt;&lt;sys_id&gt;1ae79e731b5a819015ab1f4a234bcb66&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_name&gt;deleteRecord&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ws_operation_1ae79e731b5a819015ab1f4a234bcb66&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;alealvar&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-03-24 19:12:31&lt;/sys_updated_on&gt;&lt;web_service_definition display_value="Custom Incident API"&gt;1c5756731b5a819015ab1f4a234bcb09&lt;/web_service_definition&gt;&lt;web_service_version/&gt;&lt;/sys_ws_operation&gt;&lt;/record_update&gt;</payload>
+<payload_hash>993829071</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>59c5fdb51ba6051015ab1f4a234bcb17</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a350000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>deleteRecord</target_name>
+<type>Scripted REST Resource</type>
+<update_domain>global</update_domain>
+<update_guid>612e1ebbcd5a8190287fd5b1112d987b</update_guid>
+<update_guid_history>612e1ebbcd5a8190287fd5b1112d987b:993829071,1af716b3ea5a8190db066bb2847267fa:-1611385669</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_query_parameter_map_6c6cd23b1b5a819015ab1f4a234bcb22</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter_map"><sys_ws_query_parameter_map action="INSERT_OR_UPDATE"><sys_class_name>sys_ws_query_parameter_map</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 19:04:54</sys_created_on><sys_id>6c6cd23b1b5a819015ab1f4a234bcb22</sys_id><sys_mod_count>0</sys_mod_count><sys_name>63ebd2f71b5a819015ab1f4a234bcbc9</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_query_parameter_map_6c6cd23b1b5a819015ab1f4a234bcb22</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 19:04:54</sys_updated_on><web_service_operation display_value="getRecords">62a71e731b5a819015ab1f4a234bcb8e</web_service_operation><web_service_query_parameter display_value="page">63ebd2f71b5a819015ab1f4a234bcbc9</web_service_query_parameter></sys_ws_query_parameter_map></record_update>]]></payload>
+<payload_hash>1904766255</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>5dc5fdb51ba6051015ab1f4a234bcb19</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a2f0000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>63ebd2f71b5a819015ab1f4a234bcbc9</target_name>
+<type>Scripted REST Query Parameter Associatio</type>
+<update_domain>global</update_domain>
+<update_guid>466cd23bf15a81904b014cb28b514728</update_guid>
+<update_guid_history>466cd23bf15a81904b014cb28b514728:1904766255</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_operation_bbb7de731b5a819015ab1f4a234bcb30</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ws_operation"&gt;&lt;sys_ws_operation action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;consumes&gt;application/json,application/xml,text/xml&lt;/consumes&gt;&lt;consumes_customized&gt;false&lt;/consumes_customized&gt;&lt;default_operation_uri/&gt;&lt;enforce_acl&gt;cf9d01d3e73003009d6247e603f6a990&lt;/enforce_acl&gt;&lt;http_method&gt;POST&lt;/http_method&gt;&lt;name&gt;postRecord&lt;/name&gt;&lt;operation_script&gt;&lt;![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+	
+	try {
+		var apiClient = new API_IncidentUtils();
+		
+		var body = request.body.dataString;
+
+		return apiClient.createRecord(body);
+    
+	} catch (e) {
+        gs.error('API failed to respond: ' + request.uri + ', Error: ' + JSON.stringify(e, 0, 3));
+        var responseError = new sn_ws_err.ServiceError();
+		
+		if (e.code){
+			responseError.setStatus(e.code);
+			switch(e.code){
+				case 400:
+					responseError.setMessage('Invalid request');
+					responseError.setDetail(e);
+					break;
+			}
+			return responseError;
+		}
+		
+        responseError.setStatus(500);
+        responseError.setMessage('Internal server error occurred');
+        responseError.setDetail(e);
+        return responseError;
+    }
+
+})(request, response);]]&gt;&lt;/operation_script&gt;&lt;operation_uri&gt;/api/660033/inc&lt;/operation_uri&gt;&lt;produces&gt;application/json,application/xml,text/xml&lt;/produces&gt;&lt;produces_customized&gt;false&lt;/produces_customized&gt;&lt;relative_path&gt;/&lt;/relative_path&gt;&lt;request_example/&gt;&lt;requires_acl_authorization&gt;true&lt;/requires_acl_authorization&gt;&lt;requires_authentication&gt;true&lt;/requires_authentication&gt;&lt;requires_snc_internal_role&gt;true&lt;/requires_snc_internal_role&gt;&lt;short_description/&gt;&lt;sys_class_name&gt;sys_ws_operation&lt;/sys_class_name&gt;&lt;sys_created_by&gt;alealvar&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-03-24 18:44:45&lt;/sys_created_on&gt;&lt;sys_id&gt;bbb7de731b5a819015ab1f4a234bcb30&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_name&gt;postRecord&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ws_operation_bbb7de731b5a819015ab1f4a234bcb30&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;alealvar&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-03-24 19:08:00&lt;/sys_updated_on&gt;&lt;web_service_definition display_value="Custom Incident API"&gt;1c5756731b5a819015ab1f4a234bcb09&lt;/web_service_definition&gt;&lt;web_service_version/&gt;&lt;/sys_ws_operation&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-1782047458</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>91c5fdb51ba6051015ab1f4a234bcb18</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a310000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>postRecord</target_name>
+<type>Scripted REST Resource</type>
+<update_domain>global</update_domain>
+<update_guid>231d163b2c5a8190d3cac2489b659d52</update_guid>
+<update_guid_history>231d163b2c5a8190d3cac2489b659d52:-1782047458,f39b5e77b45a819016d89e759554045e:-893470128,bb2a9a37845a8190e40bd273b3ddb4d5:-1463467947,b6c712b3c75a8190eef9461fb61773e6:943772604</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_definition_1c5756731b5a819015ab1f4a234bcb09</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_definition"><sys_ws_definition action="INSERT_OR_UPDATE"><active>true</active><base_uri>/api/660033/inc</base_uri><consumes>application/json,application/xml,text/xml</consumes><consumes_customized>false</consumes_customized><default_version>No active default version</default_version><doc_link/><enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl><is_versioned>false</is_versioned><name>Custom Incident API</name><namespace>660033</namespace><produces>application/json,application/xml,text/xml</produces><produces_customized>false</produces_customized><service_id>inc</service_id><short_description/><sys_class_name>sys_ws_definition</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 18:42:59</sys_created_on><sys_id>1c5756731b5a819015ab1f4a234bcb09</sys_id><sys_mod_count>2</sys_mod_count><sys_name>Custom Incident API</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_definition_1c5756731b5a819015ab1f4a234bcb09</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 18:53:20</sys_updated_on></sys_ws_definition></record_update>]]></payload>
+<payload_hash>-1020968738</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>95c5fdb51ba6051015ab1f4a234bcb17</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a250000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>Custom Incident API</target_name>
+<type>Scripted REST API</type>
+<update_domain>global</update_domain>
+<update_guid>20c9d2b3c05a8190e66a64e717f510b1</update_guid>
+<update_guid_history>20c9d2b3c05a8190e66a64e717f510b1:-1020968738,70871a73bf5a819096316f07cc0e7295:2035899894,bc679673a65a8190e999bf171eff5d33:645089790</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_query_parameter_map_685c16f71b5a819015ab1f4a234bcb8c</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter_map"><sys_ws_query_parameter_map action="INSERT_OR_UPDATE"><sys_class_name>sys_ws_query_parameter_map</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 19:04:37</sys_created_on><sys_id>685c16f71b5a819015ab1f4a234bcb8c</sys_id><sys_mod_count>0</sys_mod_count><sys_name>461c5ef71b5a819015ab1f4a234bcbe1</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_query_parameter_map_685c16f71b5a819015ab1f4a234bcb8c</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 19:04:37</sys_updated_on><web_service_operation display_value="getRecords">62a71e731b5a819015ab1f4a234bcb8e</web_service_operation><web_service_query_parameter display_value="query">461c5ef71b5a819015ab1f4a234bcbe1</web_service_query_parameter></sys_ws_query_parameter_map></record_update>]]></payload>
+<payload_hash>147456230</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>99c5fdb51ba6051015ab1f4a234bcb19</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a2d0000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>461c5ef71b5a819015ab1f4a234bcbe1</target_name>
+<type>Scripted REST Query Parameter Associatio</type>
+<update_domain>global</update_domain>
+<update_guid>355c16f7685a8190d2fdf22502a0fca5</update_guid>
+<update_guid_history>355c16f7685a8190d2fdf22502a0fca5:147456230</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_query_parameter_63ebd2f71b5a819015ab1f4a234bcbc9</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter"><sys_ws_query_parameter action="INSERT_OR_UPDATE"><example_value>1</example_value><name>page</name><required>false</required><short_description>Page number</short_description><sys_class_name>sys_ws_query_parameter</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 19:03:03</sys_created_on><sys_id>63ebd2f71b5a819015ab1f4a234bcbc9</sys_id><sys_mod_count>1</sys_mod_count><sys_name>page</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_query_parameter_63ebd2f71b5a819015ab1f4a234bcbc9</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 19:04:11</sys_updated_on><web_service_definition display_value="Custom Incident API">1c5756731b5a819015ab1f4a234bcb09</web_service_definition></sys_ws_query_parameter></record_update>]]></payload>
+<payload_hash>663831200</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>9dc5fdb51ba6051015ab1f4a234bcb18</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a2a0000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>page</target_name>
+<type>Scripted REST Query Parameter</type>
+<update_domain>global</update_domain>
+<update_guid>e73c1ef7c65a81904d46bccbace1d2d3</update_guid>
+<update_guid_history>e73c1ef7c65a81904d46bccbace1d2d3:663831200,36fb56b7135a8190ca679df96581c05d:1713587722</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_script_include_ba4f1a7b1b5a819015ab1f4a234bcbe1</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;global.API_Utils&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;description&gt;Base class. Generic functions used by the custom API&lt;/description&gt;&lt;name&gt;API_Utils&lt;/name&gt;&lt;script&gt;&lt;![CDATA[var API_Utils = Class.create();
+API_Utils.prototype = {
+
+    /**SNDOC
+		@name createRecord
+		@description Inserts a new record in the database.
+		@param {String} [parms] - Contains the details about the record being inserted
+		@returns {Object} An object representing the record inserted
+    */
+    createRecord: function(parms) {
+        var that = this;
+        var err;
+
+        try {
+            var payload = JSON.parse(parms);
+        } catch (e) {
+            err = new Error('Could not parse the payload. Should be JSON-like object.');
+            err.code = 400;
+            throw err;
+        }
+
+        that.canCreate(payload);
+
+        var grNewRecord = new GlideRecord(that.tableName);
+        grNewRecord.initialize();
+
+        for (var attr in payload) {
+
+            switch (that.mapping[attr].type) {
+
+                case 'reference':
+
+                    if (!that.mapping[attr]) break;
+
+                    var grAux = new GlideRecord(that.mapping[attr].table);
+
+                    if (grAux.get(that.mapping[attr].fk, payload[attr]))
+                        grNewRecord[that.mapping[attr].field] = grAux.getUniqueValue();
+
+                    else {
+                        err = new Error('Recort not found: ' + that.mapping[attr].table + ' --&gt; ' + that.mapping[attr]);
+                        err.code = 400;
+                        throw err;
+                    }
+
+                    break;
+
+                case 'function':
+
+                    grNewRecord[that.mapping[attr].field] = that.mapping[attr].run('POST', JSON.stringify(payload[attr]));
+
+                    break;
+
+                case 'choice':
+
+                    if (!that.mapping[attr]) break;
+
+                    this._isValidChoiceOption(that.mapping[attr].table, that.mapping[attr].field, payload[attr]);
+
+                    grNewRecord[that.mapping[attr].field] = payload[attr];
+
+                    break;
+
+                default:
+                    grNewRecord[that.mapping[attr].field] = payload[attr];
+            }
+        }
+
+        var insertedRecordId = grNewRecord.insert();
+
+        var grInsertedRecord = new GlideRecord(that.tableName);
+        grInsertedRecord.get(insertedRecordId);
+
+        return this.recordToObject(grInsertedRecord, that.mapping);
+    },
+
+    /**SNDOC
+		@name updateRecord
+		@description Update an existing record
+		@param {String} [id] - Unique key identifying the record
+		@param {Object} [parms] - Contains the fields to be updated in the record
+		@returns {Object} An object representing the record inserted
+    */
+    updateRecord: function(id, parms) {
+        var that = this;
+        var err;
+
+        try {
+            var payload = JSON.parse(parms);
+        } catch (e) {
+            err = new Error('Could not parse the payload. Should be JSON-like object.');
+            err.code = 400;
+            throw err;
+        }
+
+        var grRecord = new GlideRecord(that.tableName);
+
+        if (!grRecord.get(that.pk, id)) {
+            err = new Error('Record does not exist: ' + key);
+            err.code = 400;
+            throw err;
+        }
+
+        that.canUpdate(grRecord, payload);
+
+        // Go through all fields in payload and try to use values
+        for (var attr in payload) {
+			
+            switch (that.mapping[attr].type) {
+
+                case 'reference':
+
+                    if (!that.mapping[attr]) break;
+
+					var grAux = new GlideRecord(that.mapping[attr].table);
+					
+					if (grAux.get(that.mapping[attr].fk, payload[attr]))
+                        grRecord[that.mapping[attr].field] = grAux.getUniqueValue();
+
+                    else {
+                        err = new Error('Recort not found: ' + that.mapping[attr].table + ' --&gt; ' + that.mapping[attr]);
+                        err.code = 400;
+                        throw err;
+					}
+
+                    break;
+
+                case 'function':
+                    
+					grRecord[that.mapping[attr].field] = that.mapping[attr].run('PUT', JSON.stringify(payload[attr]));
+                    
+					break;
+					
+				case 'choice':
+
+                    if (!that.mapping[attr]) break;
+
+                    this._isValidChoiceOption(that.mapping[attr].table, that.mapping[attr].field, payload[attr]);
+
+                    grRecord[that.mapping[attr].field] = payload[attr];
+
+                    break;
+
+                default:
+                    grRecord[that.mapping[attr].field] = payload[attr];
+            }
+        }
+
+        grRecord.update();
+
+        return this.recordToObject(grRecord, that.mapping);
+    },
+
+    /**SNDOC
+		@name generateQuery
+		@description Generates the encoded query based on the given module and filter criterias
+		@param {Object} [filter] - The filter criterias
+		@returns {String|null} The encoded query string or null
+    */
+    generateQuery: function(filter) {
+        if (_.isNull(filter) || _.isUndefined(filter) || _.isEmpty(filter)) {
+            return null;
+        }
+
+        var that = this;
+		
+		// place=garden^pet=dog^ORpet=cat^NQplace=aquarium^pet=koi
+		// [place=garden AND (pet=dog OR pet=cat)] OR [place=aquarium AND pet=koi]
+        var query = String(filter)
+            .split('^OR')
+			// ['place=garden^pet=dog', 'pet=cat^NQplace=aquarium^pet=koi']
+            .map(function(s) {
+                var str = s
+					.split('^NQ')
+					// ['pet=cat', 'place=aquarium^pet=koi']
+                    .map(function(t) {
+                        var substr = t
+							// ['place=aquarium', 'pet=koi']
+							.split('^')
+                            .map(function(u) {
+                                var params = u.split('=');
+                                var attr = params[0];
+                                var value = params[1];
+
+                                if (!that.mapping[attr] || !that.mapping[attr].query) {
+                                    var err = new Error('Attribute not allowed on query: ' + attr);
+                                    err.code = 400;
+                                    throw err;
+                                }
+
+                                var targetField = that.mapping[attr].field;
+                                return targetField + '=' + value;
+                            });
+                        return substr.join('^');
+                    });
+                return str.join('^NQ');
+            });
+        return query.join('^OR');
+    },
+
+    /**SNDOC
+		@name getRecordList
+		@description Gets a list of records based on the given credentials and converts it to the expected graphql object
+		@param {String} [query] - The query which should be execute
+		@param {Object|Boolean} [paginate] - The pagination config
+		@param {Object|Boolean} [sort] - The sort config
+		@returns {Object} {pageInfo:{totalPages:&lt;integer&gt;, currentPage:&lt;integer&gt;}, count:&lt;integer&gt;, data:[&lt;Object&gt;,...]}
+    */
+    getRecordList: function(query, paginate, sort) {
+		var that = this;
+  
+        var gaCount = new GlideAggregate(that.tableName);
+        gaCount.addAggregate('COUNT');
+        if (query) gaCount.addEncodedQuery(query);
+        gaCount.query();
+
+        var countResult = gaCount.next() ? gaCount.getAggregate('COUNT') : 0;
+
+        
+        var grRecord = new GlideRecord(that.tableName);
+        !paginate &amp;&amp; grRecord.setLimit(100);
+        if (query) grRecord.addEncodedQuery(query);
+
+        if (paginate) {
+            var rowStart = paginate.perPage * paginate.page - paginate.perPage;
+            var rowEnd = paginate.perPage * paginate.page;
+            grRecord.chooseWindow(rowStart, rowEnd);
+        }
+
+        if (sort) {
+            try {
+                sort = JSON.parse(sort);
+				
+                if (!sort.order || sort.order == 'ASC')
+                    grRecord.orderBy(that.mapping[sort.by]['field']);
+                else
+                    grRecord.orderByDesc(that.mapping[sort.by]['field']);
+                
+            } catch (e) {
+                var err = new Error('Could not parse the "sort" parameter');
+                err.code = 400;
+                throw err;
+            }
+        }
+
+        grRecord.query();
+        var records = [];
+        while (grRecord.next())
+            records.push(this.recordToObject(grRecord, that.mapping));
+
+        return {
+            pageInfo: {
+                totalPages: paginate ? Math.ceil(countResult / paginate.perPage) : 1,
+                currentPage: paginate ? parseFloat(paginate.page) : 1,
+            },
+            count: records.length,
+            data: records,
+        };
+    },
+
+    /**SNDOC
+		@name recordToObject
+		@description Generates the object based on the mapping definition
+		@param {GlideRecord} [grRecord] - The current gliderecord
+		@param {Object} [objMapping] - The field mapping
+		@returns {Object} An object representing the current record
+    */
+    recordToObject: function(grRecord, objMapping) {
+        var that = this;
+		
+        var object = _.omit(objMapping, function(field) {
+            if (!field.show) return true;      
+            else return false;
+        });
+
+        return _.mapObject(object, function(attr) {
+
+            switch (attr.type) {
+					
+                case 'date':
+					if (!grRecord.getValue(attr.field)) break;
+				
+                    var gdtDate = new GlideDateTime(grRecord.getValue(attr.field));
+                    return gdtDate.getDate().getByFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+                case 'bool':
+                    return grRecord.getValue(attr.field) === '1';
+
+                case 'function':
+                    return attr.run('GET', grRecord);
+
+                default:
+                    return attr.display ? grRecord.getDisplayValue(attr.field) : grRecord.getValue(attr.field);
+            }
+        });
+    },
+
+    /**SNDOC
+		@name deleteRecord
+		@description delete the record passed by parameter in the table
+		@param {String} [Id] - The record's id to delete
+		@returns {Boolean} If the record was successfully deleted
+    */
+    deleteRecord: function(id) {
+        var grRecord = new GlideRecord(this.tableName);
+		
+		if (grRecord.get(that.tableKey, id))
+            return grRecord.deleteRecord();
+        
+		else {
+            var err = new Error('Record not found');
+            err.code = 400;
+            throw err;
+        }
+    },
+
+    /**SNDOC
+    @name _isValidChoiceOption
+    @description Check out and return whether the value is a valid option for a given table and field pairs. In case of not existing, do not return anything but raise a new error.
+    @param {String} [key] - Field of type choice
+    @param {String} [value] - Choice option given
+    @private
+    */
+    _isValidChoiceOption: function(key, value) {
+		var that = this;
+        var grChoice = new GlideRecord('sys_choice');
+        
+		grChoice.addQuery("name", that.tableName);
+        grChoice.addQuery("element", key);
+        grChoice.addQuery("value", value);
+        grChoice.addQuery("inactive", false);
+		grChoice.setLimit(1);
+        grChoice.query();
+        
+		if (!grChoice.hasNext()) {
+            var err = new Error('Invalid value: ' + value);
+            err.code = 400;
+            throw err;
+        }
+    },
+
+    type: 'API_Utils'
+};]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;alealvar&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-03-24 20:22:45&lt;/sys_created_on&gt;&lt;sys_id&gt;ba4f1a7b1b5a819015ab1f4a234bcbe1&lt;/sys_id&gt;&lt;sys_mod_count&gt;2&lt;/sys_mod_count&gt;&lt;sys_name&gt;API_Utils&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_ba4f1a7b1b5a819015ab1f4a234bcbe1&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;alealvar&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-03-24 20:57:43&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-840060689</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>d1c5fdb51ba6051015ab1f4a234bcb17</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a360000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>API_Utils</target_name>
+<type>Script Include</type>
+<update_domain>global</update_domain>
+<update_guid>2e36363b6ada819090c36683582ff4d0</update_guid>
+<update_guid_history>2e36363b6ada819090c36683582ff4d0:-840060689,72303e730e9a8190feb17c169867edc7:-1579148079,163e6e73619a8190b5a09eb46450e71c:1488273797</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_query_parameter_map_f94d167b1b5a819015ab1f4a234bcb88</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter_map"><sys_ws_query_parameter_map action="INSERT_OR_UPDATE"><sys_class_name>sys_ws_query_parameter_map</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 19:08:47</sys_created_on><sys_id>f94d167b1b5a819015ab1f4a234bcb88</sys_id><sys_mod_count>0</sys_mod_count><sys_name>42bad2771b5a819015ab1f4a234bcbac</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_query_parameter_map_f94d167b1b5a819015ab1f4a234bcb88</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 19:08:47</sys_updated_on><web_service_operation display_value="deleteRecord">1ae79e731b5a819015ab1f4a234bcb66</web_service_operation><web_service_query_parameter display_value="id">42bad2771b5a819015ab1f4a234bcbac</web_service_query_parameter></sys_ws_query_parameter_map></record_update>]]></payload>
+<payload_hash>1136038684</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>d1c5fdb51ba6051015ab1f4a234bcb1a</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a330000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>42bad2771b5a819015ab1f4a234bcbac</target_name>
+<type>Scripted REST Query Parameter Associatio</type>
+<update_domain>global</update_domain>
+<update_guid>364d163bbd5a8190bf4db97e5e85f1ea</update_guid>
+<update_guid_history>364d163bbd5a8190bf4db97e5e85f1ea:1136038684</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_query_parameter_map_4dc6fef71bda819015ab1f4a234bcb95</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter_map"><sys_ws_query_parameter_map action="INSERT_OR_UPDATE"><sys_class_name>sys_ws_query_parameter_map</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 21:00:08</sys_created_on><sys_id>4dc6fef71bda819015ab1f4a234bcb95</sys_id><sys_mod_count>0</sys_mod_count><sys_name>f596363b1bda819015ab1f4a234bcbc4</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_query_parameter_map_4dc6fef71bda819015ab1f4a234bcb95</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 21:00:08</sys_updated_on><web_service_operation display_value="getRecords">62a71e731b5a819015ab1f4a234bcb8e</web_service_operation><web_service_query_parameter display_value="sort">f596363b1bda819015ab1f4a234bcbc4</web_service_query_parameter></sys_ws_query_parameter_map></record_update>]]></payload>
+<payload_hash>-346983778</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>d5c5fdb51ba6051015ab1f4a234bcb19</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a390000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>f596363b1bda819015ab1f4a234bcbc4</target_name>
+<type>Scripted REST Query Parameter Associatio</type>
+<update_domain>global</update_domain>
+<update_guid>02c6363becda819079cf793312e6ebd5</update_guid>
+<update_guid_history>02c6363becda819079cf793312e6ebd5:-346983778</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_query_parameter_580c16f71b5a819015ab1f4a234bcbc4</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter"><sys_ws_query_parameter action="INSERT_OR_UPDATE"><example_value>5</example_value><name>limit</name><required>false</required><short_description>Size limit</short_description><sys_class_name>sys_ws_query_parameter</sys_class_name><sys_created_by>alealvar</sys_created_by><sys_created_on>2022-03-24 19:03:28</sys_created_on><sys_id>580c16f71b5a819015ab1f4a234bcbc4</sys_id><sys_mod_count>1</sys_mod_count><sys_name>limit</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ws_query_parameter_580c16f71b5a819015ab1f4a234bcbc4</sys_update_name><sys_updated_by>alealvar</sys_updated_by><sys_updated_on>2022-03-24 19:04:20</sys_updated_on><web_service_definition display_value="Custom Incident API">1c5756731b5a819015ab1f4a234bcb09</web_service_definition></sys_ws_query_parameter></record_update>]]></payload>
+<payload_hash>-1007425876</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>d9c5fdb51ba6051015ab1f4a234bcb18</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a2b0000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>limit</target_name>
+<type>Scripted REST Query Parameter</type>
+<update_domain>global</update_domain>
+<update_guid>a94cdef74e5a819036cec757fcfba0cf</update_guid>
+<update_guid_history>a94cdef74e5a819036cec757fcfba0cf:-1007425876,051c5eb7bf5a819096664bd78832caa2:-2025761419</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>retrieved</category>
+<comments/>
+<name>sys_ws_operation_76d752b31b5a819015ab1f4a234bcb71</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ws_operation"&gt;&lt;sys_ws_operation action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;consumes&gt;application/json,application/xml,text/xml&lt;/consumes&gt;&lt;consumes_customized&gt;false&lt;/consumes_customized&gt;&lt;default_operation_uri/&gt;&lt;enforce_acl&gt;cf9d01d3e73003009d6247e603f6a990&lt;/enforce_acl&gt;&lt;http_method&gt;PUT&lt;/http_method&gt;&lt;name&gt;putRecord&lt;/name&gt;&lt;operation_script&gt;&lt;![CDATA[(function process( /*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+
+    try {
+        var apiClient = new API_IncidentUtils();
+
+        var incidentNo = request.queryParams.id;
+		var body = request.body.dataString;
+
+        return apiClient.updateRecord(incidentNo, body);
+
+    } catch (e) {
+        gs.error('API failed to respond: ' + request.uri + ', Error: ' + JSON.stringify(e, 0, 3));
+        var responseError = new sn_ws_err.ServiceError();
+
+        if (e.code) {
+            responseError.setStatus(e.code);
+            switch (e.code) {
+                case 400:
+                    responseError.setMessage('Invalid request');
+                    responseError.setDetail(e);
+                    break;
+            }
+            return responseError;
+        }
+
+        responseError.setStatus(500);
+        responseError.setMessage('Internal server error occurred');
+        responseError.setDetail(e);
+        return responseError;
+    }
+
+})(request, response);]]&gt;&lt;/operation_script&gt;&lt;operation_uri&gt;/api/660033/inc&lt;/operation_uri&gt;&lt;produces&gt;application/json,application/xml,text/xml&lt;/produces&gt;&lt;produces_customized&gt;false&lt;/produces_customized&gt;&lt;relative_path&gt;/&lt;/relative_path&gt;&lt;request_example/&gt;&lt;requires_acl_authorization&gt;true&lt;/requires_acl_authorization&gt;&lt;requires_authentication&gt;true&lt;/requires_authentication&gt;&lt;requires_snc_internal_role&gt;true&lt;/requires_snc_internal_role&gt;&lt;short_description/&gt;&lt;sys_class_name&gt;sys_ws_operation&lt;/sys_class_name&gt;&lt;sys_created_by&gt;alealvar&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-03-24 18:45:11&lt;/sys_created_on&gt;&lt;sys_id&gt;76d752b31b5a819015ab1f4a234bcb71&lt;/sys_id&gt;&lt;sys_mod_count&gt;2&lt;/sys_mod_count&gt;&lt;sys_name&gt;putRecord&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ws_operation_76d752b31b5a819015ab1f4a234bcb71&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;alealvar&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-03-24 19:08:34&lt;/sys_updated_on&gt;&lt;web_service_definition display_value="Custom Incident API"&gt;1c5756731b5a819015ab1f4a234bcb09&lt;/web_service_definition&gt;&lt;web_service_version/&gt;&lt;/sys_ws_operation&gt;&lt;/record_update&gt;</payload>
+<payload_hash>345305083</payload_hash>
+<remote_update_set display_value="Generic API">5dc5fdb51ba6051015ab1f4a234bcb16</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>alealvar</sys_created_by>
+<sys_created_on>2022-03-30 21:23:56</sys_created_on>
+<sys_id>ddc5fdb51ba6051015ab1f4a234bcb17</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>17fdc9b3a320000001</sys_recorded_at>
+<sys_updated_by>alealvar</sys_updated_by>
+<sys_updated_on>2022-03-30 21:23:56</sys_updated_on>
+<table/>
+<target_name>putRecord</target_name>
+<type>Scripted REST Resource</type>
+<update_domain>global</update_domain>
+<update_guid>2f3d127b945a8190e2c4e076edfd65cc</update_guid>
+<update_guid_history>2f3d127b945a8190e2c4e076edfd65cc:345305083,869b5eb7525a8190d55c88ec5dac1948:-1773717608,d9e792b3125a81907cbcd82d1aabdd87:-394363843</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>
