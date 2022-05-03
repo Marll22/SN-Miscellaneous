@@ -10,6 +10,18 @@
 
 In this project you will find some of my scripts, update sets, cheatsheets, and whatever related to ServiceNow I may find interesting at some point.
 
+## Update Sets
+
+| Name | Description |
+| -- | -- |
+| [Code review](./update-sets/code_review.xml) | Code review utility created by David Martin Clavo. Allows you to review the contain of an update set |
+| [Underscore JS](./update-sets/underscore_js.xml) | UnderscoreJS library included as a script include |
+| [Fixed query](./update-sets/fixed_query.xml) | Fixed query example |
+| [Generic API](./update-sets/generic_api.xml) | Generic API implementation |
+| [Reference field. Auto-complete](./update-sets/reference_field_auto_complete.xml) | Demo of https://snprotips.com/blog/2016/2/22/referencelist-attributes |
+| [Adobe Embed API](./update-sets/adobe_embed_api.xml) | Demo of Adobe Embed API embedded in a widget |
+
+
 ### Scripts
 
 | Name | Description | Application | Scope |
